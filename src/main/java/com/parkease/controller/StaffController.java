@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import com.parkease.dto.ParkingSummaryResponse;
 
 import java.util.List;
 
@@ -66,4 +67,9 @@ public class StaffController {
 
         return new ParkingSlotResponse(slot);
     }
+
+    @GetMapping("/slots/count")
+public ParkingSummaryResponse getParkingSummary() {
+    return parkingSlotService.getParkingSummary();
+}
 }
