@@ -7,6 +7,8 @@ import com.parkease.repository.ParkingSlotRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.parkease.dto.ParkingSummaryResponse;
+
 import java.util.List;
 
 @Service
@@ -85,4 +87,12 @@ public class ParkingSlotService {
                     "No parking record found for this vehicle."
                 ));
     }
+
+    public ParkingSummaryResponse getParkingSummary() {
+    long total = parkingSlotRepository.count();
+    long available = parkingSlotRepository.countByStatus("AVAILABLE");
+    long occupied = parkingSlotRepository.countByStatus("OCCUPIED");
+
+    return new ParkingSummaryResponse(total, available, occupied);
+}
 }
