@@ -28,11 +28,28 @@ pipeline {
                     )
                 ]) {
                     sh '''
-                        set -eu
-                        sed -i 's/\r$//' mvnw
-                        chmod +x mvnw
-                        ./mvnw -B clean verify
-                    '''
+    set -eu
+
+    echo "========== JAVA ENVIRONMENT =========="
+    echo "JAVA_HOME=$JAVA_HOME"
+    echo "PATH=$PATH"
+
+    echo "========== JAVA VERSION =========="
+    which java
+    java -version
+
+    echo "========== JAVA COMPILER =========="
+    which javac
+    javac -version
+
+    echo "========== MAVEN VERSION =========="
+    sed -i 's/\r$//' mvnw
+    chmod +x mvnw
+    ./mvnw -version
+
+    echo "========== STARTING BUILD =========="
+    ./mvnw -B clean verify
+'''
                 }
             }
 
