@@ -31,19 +31,19 @@ pipeline {
     set -eu
 
     echo "========== JAVA ENVIRONMENT =========="
-    echo "JAVA_HOME=$JAVA_HOME"
+    echo "JAVA_HOME=${JAVA_HOME:-NOT_SET}"
     echo "PATH=$PATH"
 
     echo "========== JAVA VERSION =========="
-    which java
+    command -v java || true
     java -version
 
     echo "========== JAVA COMPILER =========="
-    which javac
-    javac -version
+    command -v javac || true
+    javac -version || true
 
     echo "========== MAVEN VERSION =========="
-    sed -i 's/\r$//' mvnw
+    sed -i 's/\\r$//' mvnw
     chmod +x mvnw
     ./mvnw -version
 
